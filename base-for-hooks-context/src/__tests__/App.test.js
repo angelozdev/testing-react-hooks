@@ -1,10 +1,11 @@
-import React from "react";
+import * as React from "react";
 import { shallow } from "enzyme";
 import { findByTestAttr } from "../../test/testUtils";
 import App from "../App";
 
 const setup = () => {
-  return shallow(<App />);
+  const app = shallow(<App />);
+  return app;
 };
 
 test("renders without errors", () => {
