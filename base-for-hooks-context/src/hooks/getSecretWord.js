@@ -1,12 +1,10 @@
 import axios from "axios";
 
-function getSecretWord(setSecretWord) {
+export function getSecretWord() {
   const url = "http://localhost:3030";
   return axios
     .get(url)
-    .then(({ data }) => {
-      setSecretWord(data);
-    })
+    .then(({ data }) => data)
     .catch((err) => err);
 }
 

@@ -1,4 +1,4 @@
-import getSecretWord from "../../hooks/getSecretWord";
+import * as hooks from "../../hooks/getSecretWord";
 import moxios from "moxios";
 
 describe("get word with moxios", () => {
@@ -24,12 +24,11 @@ describe("get word with moxios", () => {
       });
     });
 
-    const setSecretWordMock = jest.fn();
-
     // expect
-    getSecretWord(setSecretWordMock)
-      .then(() => {
-        expect(setSecretWordMock).toHaveBeenCalledWith(secretWordMock);
+    hooks
+      .getSecretWord()
+      .then((data) => {
+        expect(data).toBe(secretWordMock);
       })
       .finally(() => {
         done();

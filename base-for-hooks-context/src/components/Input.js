@@ -29,6 +29,7 @@ function Input({ secretWord }) {
 
   return (
     <div data-test={dataAttrs.container}>
+      <p>{secretWord}</p>
       <form
         data-test={dataAttrs.form}
         onSubmit={handleSubmit}
