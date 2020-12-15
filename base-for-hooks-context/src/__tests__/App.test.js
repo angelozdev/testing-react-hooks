@@ -5,24 +5,25 @@ import App from "../App";
 import * as hooks from "../hooks/getSecretWord";
 
 // Mocks
-const getSecretWordMock = jest.fn(() => Promise.resolve("party"));
+const secretWordMock = "party";
+const getSecretWordMock = jest.fn(() => Promise.resolve(secretWordMock));
 
-const setup = () => {
+const setup = (secretWord = null, status = "idle", error = null) => {
   getSecretWordMock.mockClear();
   hooks.getSecretWord = getSecretWordMock;
 
-  /*   const useReducerMock = jest.fn(() => {
-    return { data: secretWord, status: "success", error: null }, jest.fn();
+  const useReducerMock = jest.fn(() => {
+    return [{ data: secretWord, status, error }, jest.fn()];
   });
 
-  React.useReducer = useReducerMock; */
+  React.useReducer = useReducerMock;
 
   const app = mount(<App />);
   return app;
 };
 
 test("renders without errors", () => {
-  const wrapper = setup();
+  const wrapper = setup(null, "success");
   const appContainer = findByTestAttr(wrapper, "app-container");
   expect(appContainer).toHaveLength(1);
 });
@@ -46,5 +47,50 @@ describe("getSecretWord calls", () => {
 
     // Expect
     expect(getSecretWordMock).not.toHaveBeenCalled();
+  });
+});
+
+describe("status is success", () => {
+  // Setup
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = setup(secretWordMock, "success");
+  });
+
+  test("does not render spinner when secretWord is not null", () => {
+    const spinner = findByTestAttr(wrapper, "spinner");
+
+    expect(spinner.exists()).toBe(false);
+  });
+});
+
+describe("status is loading", () => {
+  // Setup
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = setup(null, "loading");
+  });
+
+  test("renders spinner when status is loading", () => {
+    const spinner = findByTestAttr(wrapper, "spinner");
+
+    expect(spinner.exists()).toBe(true);
+  });
+});
+
+describe("status is failed", () => {
+  // Setup
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = setup(null, "failed", { message: "Error testing" });
+  });
+
+  test("renders spinner when status is failed", () => {
+    const error = findByTestAttr(wrapper, "error");
+
+    expect(error.exists()).toBe(true);
   });
 });

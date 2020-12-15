@@ -7,12 +7,13 @@ export const dataAttrs = {
   form: "input-form",
   input: "input-box",
   button: "input-submit-button",
+  spinner: "spinner",
 };
 
 // Component
 function Input({ secretWord }) {
   // States
-  const [currentGuessWord, setCurrentGuessWord] = React.useState(null);
+  const [currentGuessWord, setCurrentGuessWord] = React.useState("");
 
   // Methods
   const handleSubmit = (e) => {

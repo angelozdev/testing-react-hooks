@@ -81,15 +81,16 @@ function App() {
   console.log(state);
 
   return (
-    <div data-test="app-container" className="my-4">
+    <div data-test="app-container" className="m-4">
       <div className="container mx-auto border hover:shadow transition-shadow duration-300 ease">
         <div className="p-4">
           {state.status === statuses.FAILED && (
-            <p>Error: {state.error?.message}</p>
+            <p data-test="error">{state.error?.message}</p>
           )}
-          {state.status === statuses.LOADING && <p>Loading...</p>}
-
-          {state.status === statuses.SUCCESS && (
+          {state.status === statuses.LOADING && (
+            <h3 data-test="spinner">Loading...</h3>
+          )}
+          {state.status === statuses.SUCCESS && state.data && (
             <Input secretWord={state.data} />
           )}
         </div>
