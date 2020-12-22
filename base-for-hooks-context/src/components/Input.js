@@ -1,6 +1,8 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 
+import { getStringByLanguage } from "../helpers/strings";
+
 // Testing
 export const dataAttrs = {
   container: "input-container",
@@ -11,7 +13,7 @@ export const dataAttrs = {
 };
 
 // Component
-function Input({ secretWord }) {
+function Input({ secretWord, language }) {
   // States
   const [currentGuessWord, setCurrentGuessWord] = React.useState("");
 
@@ -39,7 +41,7 @@ function Input({ secretWord }) {
         <input
           className="py-1 px-3 border outline-none focus:border-green-400"
           type="text"
-          placeholder="Enter guess"
+          placeholder={getStringByLanguage(language, "guessedInputPlaceholder")}
           data-test={dataAttrs.input}
           value={currentGuessWord}
           onChange={handleChange}
@@ -49,7 +51,7 @@ function Input({ secretWord }) {
           type="submit"
           data-test={dataAttrs.button}
         >
-          GUESS
+          {getStringByLanguage(language, "submit")}
         </button>
       </form>
     </div>

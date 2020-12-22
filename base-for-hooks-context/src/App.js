@@ -110,7 +110,10 @@ function App() {
             <h3 data-test="spinner">Loading...</h3>
           )}
           {state.status === statuses.SUCCESS && state.data.secretWord && (
-            <Input secretWord={state.data.secretWord} />
+            <Input
+              language={state.data.language}
+              secretWord={state.data.secretWord}
+            />
           )}
         </div>
       </div>

@@ -15,13 +15,14 @@ function LanguagePicker({ setLanguage }) {
   ];
 
   /* Methods */
-  const handleClick = () => {
-    setLanguage();
+  const handleClick = (lan) => {
+    setLanguage(lan);
   };
 
   /* Views */
   const languagesIconsViews = languages.map((lan, index) => (
     <span
+      className="cursor-pointer"
       onClick={() => handleClick(lan.code)}
       key={index}
       data-test={dataTestIds.LANGUAGE_ICON}
@@ -31,10 +32,7 @@ function LanguagePicker({ setLanguage }) {
   ));
 
   return (
-    <div
-      className="cursor-pointer border inline py-1 px-3"
-      data-test={dataTestIds.COMPONENT}
-    >
+    <div className="border inline py-1 px-3" data-test={dataTestIds.COMPONENT}>
       {languagesIconsViews}
     </div>
   );
