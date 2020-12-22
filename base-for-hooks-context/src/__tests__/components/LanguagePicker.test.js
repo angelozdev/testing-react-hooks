@@ -31,9 +31,10 @@ test("renders non-zero language icons", () => {
 
 test("calls setLanguage on click", () => {
   const wrapper = setup();
-  const component = findByTestAttr(wrapper, dataTestIds.COMPONENT);
+  const languageIcons = findByTestAttr(wrapper, dataTestIds.LANGUAGE_ICON);
+  const firstIcon = languageIcons.first();
 
-  component.simulate("click");
+  firstIcon.simulate("click");
 
   expect(setLanguageMock).toHaveBeenCalled();
 });
