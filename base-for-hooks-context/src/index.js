@@ -4,7 +4,16 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+/* Context */
+import LanguageContext from "./contexts/languageContext";
+
+const root = document.getElementById("root");
+ReactDOM.render(
+  <LanguageContext.Provider value={"en"}>
+    <App />
+  </LanguageContext.Provider>,
+  root
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

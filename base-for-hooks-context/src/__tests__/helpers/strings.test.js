@@ -1,22 +1,44 @@
 import * as stringsModule from "../../helpers/strings";
 
 // Mocks
-const en = {
-  congrats: "Congratulations! You guessed the word",
-  submit: "Submit",
-  guessedPrompt: "Try to guess th secret word!",
-  guessInputPlaceholder: "Enter guess",
-  loading: "Loading...",
+const strings = {
+  en: {
+    submit: "Submit",
+  },
+  emoji: {
+    submit: "💣",
+  },
+  another: {},
 };
 
 test("returns correct submit string for english", () => {
-  const string = stringsModule.getStringByLanguage(en, "submit");
+  const string = stringsModule.getStringByLanguage("en", "submit", strings);
 
-  expect(string).toBe(en.submit);
+  expect(string).toBe(strings.en.submit);
 });
 
-test("returns english submit when language does not exists", () => {
-  const string = stringsModule.getStringByLanguage(undefined, "submit");
+test("returns correct submit string for emoji", () => {
+  const string = stringsModule.getStringByLanguage("emoji", "submit", strings);
 
-  expect(string).toBe(en.submit);
+  expect(string).toBe(strings.emoji.submit);
+});
+
+test("returns english submit when language does not exist", () => {
+  const string = stringsModule.getStringByLanguage(
+    "notLenguage",
+    "submit",
+    strings
+  );
+
+  expect(string).toBe(strings.en.submit);
+});
+
+test("returns english submit when submit key does not exist", () => {
+  const string = stringsModule.getStringByLanguage(
+    "another",
+    "submit",
+    strings
+  );
+
+  expect(string).toBe(strings.en.submit);
 });

@@ -4,9 +4,9 @@ import { findByTestAttr, checkProps } from "../../../test/testUtils";
 import { shallow } from "enzyme";
 
 /* Mocks */
-const setLanguage = jest.fn();
+const setLanguageMock = jest.fn();
 const setup = () => {
-  const wrapper = shallow(<LanguagePicker setLanguage={setLanguage} />);
+  const wrapper = shallow(<LanguagePicker setLanguage={setLanguageMock} />);
   return wrapper;
 };
 
@@ -19,7 +19,7 @@ test("renders without crashing", () => {
 });
 
 test("does not throw warning with expected props", () => {
-  checkProps(LanguagePicker, { setLanguage });
+  checkProps(LanguagePicker, { setLanguage: setLanguageMock });
 });
 
 test("renders non-zero language icons", () => {
@@ -35,5 +35,5 @@ test("calls setLanguage on click", () => {
 
   component.simulate("click");
 
-  expect(setLanguage).toHaveBeenCalled();
+  expect(setLanguageMock).toHaveBeenCalled();
 });

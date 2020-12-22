@@ -2,6 +2,7 @@ import * as React from "react";
 
 // Components
 import Input from "./components/Input";
+import LanguagePicker from "./components/LanguagePicker";
 
 // Hooks
 import * as hooks from "./hooks/getSecretWord";
@@ -14,6 +15,7 @@ const actionTypes = {
   SET_SECRET_WORD_REQUEST: "SET_SECRET_WORD_REQUEST",
   SET_SECRET_WORD_SUCCESS: "SET_SECRET_WORD_SUCCESS",
   SET_SECRET_WORD_FAILED: "SET_SECRET_WORD_FAILED",
+  SET_LANGUAGE: "SET_LANGUAGE",
 };
 
 const statuses = {
@@ -33,7 +35,7 @@ function reducer(state, action) {
     case actionTypes.SET_SECRET_WORD_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        data: { ...state.data, secretWord: action.payload },
         status: statuses.SUCCESS,
       };
     case actionTypes.SET_SECRET_WORD_FAILED:
@@ -41,6 +43,14 @@ function reducer(state, action) {
         ...state,
         status: statuses.FAILED,
         error: action.payload,
+      };
+    case actionTypes.SET_LANGUAGE:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          language: action.payload,
+        },
       };
     default:
       throw new Error(`Invalid action type ${action.type}`);
@@ -51,7 +61,10 @@ function reducer(state, action) {
 function App() {
   // States
   const initialState = {
-    data: null,
+    data: {
+      secretWord: null,
+      language: "en",
+    },
     status: statuses.IDLE,
     error: null,
   };
@@ -63,6 +76,10 @@ function App() {
       type: actionTypes.SET_SECRET_WORD_SUCCESS,
       payload: secretWord,
     });
+  };
+
+  const setLanguage = (language = "en") => {
+    dispatch({ type: actionTypes.SET_LANGUAGE, payload: language });
   };
 
   // Lifecircle
@@ -84,14 +101,16 @@ function App() {
     <div data-test="app-container" className="m-4">
       <div className="container mx-auto border hover:shadow transition-shadow duration-300 ease">
         <div className="p-4">
+          <h1 className="text-lg">Jooto Game</h1>
+          <LanguagePicker setLanguage={setLanguage} />
           {state.status === statuses.FAILED && (
             <p data-test="error">{state.error?.message}</p>
           )}
           {state.status === statuses.LOADING && (
             <h3 data-test="spinner">Loading...</h3>
           )}
-          {state.status === statuses.SUCCESS && state.data && (
-            <Input secretWord={state.data} />
+          {state.status === statuses.SUCCESS && state.data.secretWord && (
+            <Input secretWord={state.data.secretWord} />
           )}
         </div>
       </div>

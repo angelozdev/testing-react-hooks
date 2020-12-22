@@ -39,3 +39,19 @@ test("does not throw warning with expected props", () => {
   const expectedProps = { success: false };
   checkProps(Congrats, expectedProps);
 });
+
+describe("Language Picker", () => {
+  test("correctly renders congrats string in english", () => {
+    const wrapper = setup({ success: true });
+    const text = wrapper.text();
+
+    expect(text).toBe("Congratulations! You guessed the word!");
+  });
+
+  test("correctly renders congrats string in english", () => {
+    const wrapper = setup({ success: true, language: "emoji" });
+    const text = wrapper.text();
+
+    expect(text).toBe("Congratulations! You guessed the word!");
+  });
+});

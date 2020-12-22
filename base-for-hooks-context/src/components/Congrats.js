@@ -25,8 +25,4 @@ Congrats.propTypes = {
   success: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ success }) => {
-  return { success };
-};
-
 export default Congrats;

@@ -27,7 +27,11 @@ function LanguagePicker({ setLanguage }) {
   ));
 
   return (
-    <div onClick={handleClick} data-test={dataTestIds.COMPONENT}>
+    <div
+      className="cursor-pointer border inline py-1 px-3"
+      onClick={handleClick}
+      data-test={dataTestIds.COMPONENT}
+    >
       {languagesIconsViews}
     </div>
   );

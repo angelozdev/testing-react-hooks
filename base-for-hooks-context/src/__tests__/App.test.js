@@ -13,7 +13,7 @@ const setup = (secretWord = null, status = "idle", error = null) => {
   hooks.getSecretWord = getSecretWordMock;
 
   const useReducerMock = jest.fn(() => {
-    return [{ data: secretWord, status, error }, jest.fn()];
+    return [{ data: { secretWord }, status, error }, jest.fn()];
   });
 
   React.useReducer = useReducerMock;
